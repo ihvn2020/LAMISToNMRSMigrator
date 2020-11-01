@@ -1345,7 +1345,7 @@ public class ImportDAO {
             ps.setInt(pos, val);
         }
     }
-
+    
     public void handlePS(int pos, double val, PreparedStatement ps) throws SQLException {
         if (val == 0.0) {
             ps.setNull(pos, java.sql.Types.DOUBLE);
