@@ -683,18 +683,20 @@ USER_ID	31
         clinical.setLMP(Converter.stringToDate(data[17]));
         clinical.setBreastFeeding(data[18]);
         clinical.setOiScreen(data[19]);
-        clinical.setOiID(data[20]);
-        clinical.setAdverseDrugScreened(data[21]);
-        clinical.setAdverseDrugReactionID(data[22]);
-        clinical.setAdherenceLevel(data[23]);
-        clinical.setAdherenceID(data[24]);
-        clinical.setCommence(data[25]);
-        clinical.setNextAppointmentDate(Converter.stringToDate(data[26]));
-        clinical.setNote(data[27]);
-        clinical.setTimestamp(Converter.stringToDate(data[28]));
-        clinical.setUploaded(data[29]);
-        clinical.setTimeUploaded(Converter.stringToDate(data[30]));
-        clinical.setUserID(Converter.convertToInt(data[31]));
+        clinical.setStiID(data[20]);
+        clinical.setStiTreated(data[21]);
+        clinical.setOiID(data[22]);
+        clinical.setAdverseDrugScreened(data[23]);
+        clinical.setAdverseDrugReactionID(data[24]);
+        clinical.setAdherenceLevel(data[25]);
+        clinical.setAdherenceID(data[26]);
+        clinical.setCommence(data[27]);
+        clinical.setNextAppointmentDate(Converter.stringToDate(data[28]));
+        clinical.setNote(data[29]);
+        clinical.setTimestamp(Converter.stringToDate(data[30]));
+        clinical.setUploaded(data[31]);
+        clinical.setTimeUploaded(Converter.stringToDate(data[32]));
+        clinical.setUserID(Converter.convertToInt(data[33]));
         return clinical;
     }
 

@@ -96,6 +96,7 @@ public class LamisARTCommencementDictionary {
             obsList.add(obs);
             //regimenQuestionConceptID = coding.getNmrsAnswerConceptID();
         }
+        // First Regimen
         coding=mapRegimen(36, hivEnrollment);
         if(coding!=null){
             obs=createCodedObs(hivEnrollment,coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);

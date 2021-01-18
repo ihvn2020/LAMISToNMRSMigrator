@@ -14,6 +14,34 @@ import java.util.Date;
 public class LamisClinical {
 
     /**
+     * @return the stiID
+     */
+    public String getStiID() {
+        return stiID;
+    }
+
+    /**
+     * @param stiID the stiID to set
+     */
+    public void setStiID(String stiID) {
+        this.stiID = stiID;
+    }
+
+    /**
+     * @return the stiTreated
+     */
+    public String getStiTreated() {
+        return stiTreated;
+    }
+
+    /**
+     * @param stiTreated the stiTreated to set
+     */
+    public void setStiTreated(String stiTreated) {
+        this.stiTreated = stiTreated;
+    }
+
+    /**
      * @return the clinicalID
      */
     public int getClinicalID() {
@@ -487,6 +515,8 @@ public class LamisClinical {
     private Date LMP;
     private String breastFeeding;
     private String oiScreen;
+    private String stiID;
+    private String stiTreated;
     private String oiID;
     private String adverseDrugScreened;
     private String adverseDrugReactionID;
