@@ -94,20 +94,32 @@ public class LamisARTCommencementDictionary {
         if (coding != null) {
             obs = createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);
-            regimenQuestionConceptID = coding.getNmrsAnswerConceptID();
-
-            //First Regimen
-            coding = getCodingValue(36, hivEnrollment.getFirstRegimen());
-            if (coding != null && regimenQuestionConceptID != 0) {
-                obs = createCodedObs(hivEnrollment, regimenQuestionConceptID, coding.getNmrsAnswerConceptID(), locationID);
-                obsList.add(obs);
-            }
-
+            //regimenQuestionConceptID = coding.getNmrsAnswerConceptID();
+        }
+        coding=mapRegimen(36, hivEnrollment);
+        if(coding!=null){
+            obs=createCodedObs(hivEnrollment,coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
+            obsList.add(obs);
         }
 
         return obsList;
     }
-
+    
+    public CareCardInitialCoding mapRegimen(int pos,HIVEnrollment hivEnrollment){
+        CareCardInitialCoding coding=null;
+        for (CareCardInitialCoding ele : codingList) {
+            if (
+                    ele.getId() == pos 
+                    && 
+                    StringUtils.equalsIgnoreCase(hivEnrollment.getFirstRegimenLine(), ele.getLamisQuestion())
+                    &&
+                    StringUtils.equalsIgnoreCase(hivEnrollment.getFirstRegimen(), ele.getLamisAnswer())
+                    ) {
+                coding = ele;
+            }
+        }
+        return coding;
+    }
     public CareCardInitialCoding getCodingValue(int pos, String val) {
         CareCardInitialCoding coding = null;
         for (CareCardInitialCoding ele : codingList) {
