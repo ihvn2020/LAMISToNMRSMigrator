@@ -87,6 +87,7 @@ public class ImportDAO {
     private final static int DATAENTRY_PROVIDER_ENCOUNTER_ROLE = 1;
     private final static int VISIT_TYPE_ID = 1;
     private final static int VOIDED = 0;
+    private final static int PHONE_ATTRIBUTE_TYPE_ID=8;
     private final static String ADDRESS_COUNTRY = "NIGERIA";
     private Set<Integer> providerIdSet = new HashSet<Integer>();
     private FileManager mgr;
@@ -274,6 +275,7 @@ public class ImportDAO {
         savePatientProgram(demoList, locationID);
         savePersonNames(demoList);
         savePersonAddress(demoList);
+        savePersonAttribute(demoList);
     }
 
     public void migrateDrugs(String csvFile, int locationID) {
@@ -692,7 +694,28 @@ public class ImportDAO {
             handleException(ex);
         }
     }
-
+    public void savePersonAttribute(List<Demographics> demoList){
+        String sql_text="insert into person_attribute"
+                + " (person_id,value,person_attribute_type_id,creator,date_created,voided,uuid)"
+                + " values(?,?,?,?,?,?,?)";
+        PreparedStatement ps=prepareQuery(sql_text);
+        try{
+            for(Demographics demo: demoList){
+                ps.setInt(1, demo.getPatientID());
+                ps.setString(2,demo.getPhone_number());
+                ps.setInt(3, PHONE_ATTRIBUTE_TYPE_ID);
+                ps.setInt(4,ADMIN_USER_ID);
+                ps.setDate(5, Converter.convertToSQLDate(demo.getDateCreated()));
+                ps.setInt(6,VOIDED);
+                ps.setString(7, Converter.generateUUID());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            ps.close();
+        }catch(SQLException ex){
+            handleException(ex);
+        }
+    }
     public void savePersonAddress(List<Demographics> demoList) {
         String sql_text = "insert into person_address "
                 + "(person_id,preferred,address1,address2,"

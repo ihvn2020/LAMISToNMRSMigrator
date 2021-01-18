@@ -16,6 +16,20 @@ import java.util.List;
 public class Demographics {
 
     /**
+     * @return the phone_number
+     */
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    /**
+     * @param phone_number the phone_number to set
+     */
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    /**
      * @return the exist
      */
     public boolean isExist() {
@@ -494,6 +508,7 @@ public class Demographics {
     private Date enrollDate;
     private String errorString;
     private boolean exist;
+    private String phone_number;
     private List<String> errorList=new ArrayList<>();
 
     /**
