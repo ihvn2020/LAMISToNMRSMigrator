@@ -157,7 +157,9 @@ public class LamisARTCommencementDictionary {
         obs.setAllowed(true);
         return obs;
     }
-    
+    public void closeAllResources() {
+        mgr.closeAll();
+    }
     public Obs createNumericObs(HIVEnrollment hIVEnrollment, int conceptID, double valueNumeric, int locationID) {
         Obs obs = new Obs();
         obs.setPatientID(hIVEnrollment.getPatientID());

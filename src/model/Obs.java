@@ -71,8 +71,8 @@ public class Obs {
     private int changedBy;
     private Date dateVoided;
     private int formID;
-    private boolean exist;
-    private boolean allowed;
+    private boolean exist=false;
+    private boolean allowed=true;
 
     /**
      * @return the obsID

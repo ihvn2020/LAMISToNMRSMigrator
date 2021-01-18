@@ -157,4 +157,7 @@ public class LamisEnrollmentDictionary {
         List<String[]> dataArr = mgr.loadAllDataInFolder("map", "carecardinitial.csv");
         codingList=Converter.convertToCareCardInitialCodingList(dataArr);
     }
+     public void closeAllResources() {
+        mgr.closeAll();
+    }
 }

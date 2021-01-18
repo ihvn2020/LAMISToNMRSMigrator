@@ -285,6 +285,7 @@ public class ImportDAO {
         for (HIVEnrollment hIVEnrollment : hivEnrollmentList) {
             if (hIVEnrollment.getArtStartDate() != null) {
                 obsList = dictionary.convertToObsList(hIVEnrollment, locationID);
+                System.out.println(hIVEnrollment.getPatientID()+" size "+ obsList.size());
                 obsListForMigration.addAll(obsList);
                 num++;
                 screen.updateProgress(num);
@@ -293,6 +294,8 @@ public class ImportDAO {
                     screen.updateStatus(num + " ARTCommencement migrated of " + size);
                     obsListForMigration.clear();
                 }
+            }else{
+                System.out.println("ARTStartDate is empty");
             }
         }
         if (!obsListForMigration.isEmpty()) {
@@ -559,6 +562,12 @@ public class ImportDAO {
         if (!obsListForMigration.isEmpty()) {
             migrateMigrateForms(obsListForMigration, locationID);
         }
+        try {
+            commitConnection();
+        } catch (SQLException ex) {
+            handleException(ex);
+        }
+        dictionary.closeAllResources();
     }
 
     public void migrateDemographics(String csvFile, int locationID) {
