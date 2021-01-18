@@ -35,8 +35,7 @@ public class Test {
 
     public static void main(String[] args) throws ParseException
     {
-         //LamisDrugCoding drugCoding=getDrugCoding(drug.getRegimenDrugID());
-         //.out.println(drug.getRegimenDrugID()+"Drug id");
+         System.out.println(Converter.UnscrambleCharacters("S@U^!~U"));
     }
 }
  

@@ -430,7 +430,36 @@ public class Converter {
         }
         return conceptMapList;
     }
-
+     public static String UnscrambleNumbers(String str)
+        {
+            if (str == null) return "";
+            str = str.replace("^", "1");
+            str = str.replace("~", "2");
+            str = str.replace("`", "3");
+            str = str.replace("*", "5");
+            str = str.replace("$", "6");
+            str = str.replace("#", "7");
+            str = str.replace("@", "8");
+            str = str.replace("!", "9");
+            return str;
+        }
+      public static String UnscrambleCharacters(String str)
+        {
+            if (str == null) return "";
+            str = str.replace("^", "a");
+            str = str.replace("~", "b");
+            str = str.replace("`", "c");
+            str = str.replace("*", "e");
+            str = str.replace("$", "f");
+            str = str.replace("#", "g");
+            str = str.replace("@", "h");
+            str = str.replace("!", "i");
+            str = str.replace("%", "j");
+            str = str.replace("|", "k");
+            str = str.replace("}", "n");
+            str = str.replace("{", "o");
+            return str.toUpperCase();
+        }
     public static List<CareCardInitialCoding> convertToCareCardInitialCodingList(List<String[]> dataArrList) {
         List<CareCardInitialCoding> codingList = new ArrayList<CareCardInitialCoding>();
         CareCardInitialCoding coding = null;
@@ -821,5 +850,6 @@ USER_ID	31
         llc.setDataType(data[9]);
         return llc;
     }
+    
 
 }
