@@ -288,7 +288,7 @@ public class ImportDAO {
                 obsListForMigration.addAll(obsList);
                 num++;
                 screen.updateProgress(num);
-                if (num % 200 == 0) {
+                if (num % 50 == 0) {
                     migrateMigrateForms(obsListForMigration, locationID);
                     screen.updateStatus(num + " ARTCommencement migrated of " + size);
                     obsListForMigration.clear();
