@@ -7,6 +7,7 @@ package daos;
 
 import com.sun.org.apache.bcel.internal.generic.InstructionConstants;
 import dictionaries.MasterDictionary;
+import dictionaries.lamis.LamisARTCommencementDictionary;
 import dictionaries.lamis.LamisClinicalDictionary;
 import dictionaries.lamis.LamisDemographicsDictionary;
 import dictionaries.lamis.LamisDrugDictionary;
@@ -267,8 +268,36 @@ public class ImportDAO {
             processException(ex, "");
         }
     }
-    public void migrateARTCommencement(String csvFilePath,int locationID){
-        
+    public void migrateARTCommencement(String csvFile,int locationID){
+        int count = 0;
+        int batch_count = 1;
+        List<HIVEnrollment> hivEnrollmentList = null;
+        LamisARTCommencementDictionary dictionary = new LamisARTCommencementDictionary();
+        dictionary.setDisplayScreen(screen);
+        int size = dictionary.countRecords(csvFile);
+        screen.updateMinMaxProgress(0, size);
+        List<String[]> dataArr = dictionary.readCSVData(csvFile);
+        hivEnrollmentList = dictionary.convertToHIVEnrollments(dataArr);
+        Set<Obs> obsListForMigration = new HashSet<Obs>();
+        int num = 0;
+        int obsListSize = 0;
+        List<Obs> obsList = null;
+        for (HIVEnrollment hIVEnrollment : hivEnrollmentList) {
+            if (hIVEnrollment.getArtStartDate() != null) {
+                obsList = dictionary.convertToObsList(hIVEnrollment, locationID);
+                obsListForMigration.addAll(obsList);
+                num++;
+                screen.updateProgress(num);
+                if (num % 200 == 0) {
+                    migrateMigrateForms(obsListForMigration, locationID);
+                    screen.updateStatus(num + " ARTCommencement migrated of " + size);
+                    obsListForMigration.clear();
+                }
+            }
+        }
+        if (!obsListForMigration.isEmpty()) {
+            migrateMigrateForms(obsListForMigration, locationID);
+        }
     }
     public void migrateDemographics(List<Demographics> demoList, int locationID) {
         savePersons(demoList);
@@ -1198,6 +1227,7 @@ public class ImportDAO {
         encounterTypeIDMap.put(51, 21);
         encounterTypeIDMap.put(52, 22);
         encounterTypeIDMap.put(53, 23);
+        encounterTypeIDMap.put(56,25);
     }
 
     public int getVisitID(Date visitDate, int patientID) {

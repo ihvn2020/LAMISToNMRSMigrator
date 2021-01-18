@@ -204,19 +204,24 @@ public class Converter {
 
     public static Demographics convertToLamisDemographics(String[] data, int locationID) {
         Demographics demo = new Demographics();
-        demo.setPatientID(Converter.convertToInt(data[0]));
+        demo.setPatientID(Converter.convertToInt(data[4]));
         demo.setPatientUUID(Converter.generateUUID());
-        demo.setPepfarID(data[3]);
-        demo.setHospID(data[2]);
-        demo.setFirstName(data[5]);
-        demo.setLastName(data[4]);
-        demo.setAdultEnrollmentDt(Converter.stringToDate(data[23]));
-        demo.setDateOfBirth(Converter.stringToDate(data[7]));
-        demo.setGender(Converter.codeGender(data[6]));
-        demo.setAddress1(Converter.UnscrambleCharacters(data[13]));
-        demo.setAddress_state(data[15]);
-        demo.setAddress_lga(data[16]);
-        demo.setPhone_number(Converter.UnscrambleNumbers(data[14]));
+        demo.setPepfarID(data[6]);
+        demo.setHospID(data[5]);
+        demo.setFirstName(data[8]);
+        demo.setLastName(data[7]);
+        if(!StringUtils.isEmpty(data[21])){
+            demo.setAdultEnrollmentDt(Converter.stringToDate(data[21]));
+        }else{
+            demo.setAdultEnrollmentDt(Converter.stringToDate(data[22]));
+        }
+        
+        demo.setDateOfBirth(Converter.stringToDate(data[9]));
+        demo.setGender(Converter.codeGender(data[12]));
+        demo.setAddress1(data[18]);
+        demo.setAddress_state(data[16]);
+        demo.setAddress_lga(data[17]);
+        demo.setPhone_number(data[19]);
         demo.setCreatorID(ADMIN_USER);
         demo.setDateCreated(new Date());
         demo.setLocationID(locationID);

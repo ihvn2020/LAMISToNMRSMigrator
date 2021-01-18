@@ -55,8 +55,8 @@ public class LamisEnrollmentDictionary {
         CareCardInitialCoding coding=null;
         
         //Date ART Started
-        obs=createDateObs(hivEnrollment, DATE_ART_STARTED_CONCEPT_ID, hivEnrollment.getArtStartDate(), locationID);
-        obsList.add(obs);
+        //obs=createDateObs(hivEnrollment, DATE_ART_STARTED_CONCEPT_ID, hivEnrollment.getArtStartDate(), locationID);
+        //obsList.add(obs);
         //Date Confirmed Positive
         obs=createDateObs(hivEnrollment, DATE_CONFIRMED_POSITIVE_CONCEPT_ID, hivEnrollment.getDateConfirmedHIVTest(), locationID);
         obsList.add(obs);
