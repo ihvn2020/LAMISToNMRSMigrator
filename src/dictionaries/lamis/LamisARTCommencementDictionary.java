@@ -54,6 +54,7 @@ public class LamisARTCommencementDictionary {
         List<Obs> obsList=new ArrayList<Obs>();
         Obs obs=null;
         CareCardInitialCoding coding=null;
+        int regimenQuestionConceptID=0;
         
         //Date ART Started
         obs=createDateObs(hivEnrollment, DATE_ART_STARTED_CONCEPT_ID, hivEnrollment.getArtStartDate(), locationID);
@@ -80,11 +81,13 @@ public class LamisARTCommencementDictionary {
         if(coding!=null){
             obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);
+            regimenQuestionConceptID=coding.getNmrsAnswerConceptID();
         }
+        
         //First Regimen Line
         coding=getCodingValue(35, hivEnrollment.getFirstRegimenLine());
-        if(coding!=null){
-            obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
+        if(coding!=null && regimenQuestionConceptID!=0){
+            obs=createCodedObs(hivEnrollment, regimenQuestionConceptID, coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);
         }
         //First Regimen

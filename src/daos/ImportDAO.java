@@ -301,6 +301,12 @@ public class ImportDAO {
         if (!obsListForMigration.isEmpty()) {
             migrateMigrateForms(obsListForMigration, locationID);
         }
+        try {
+            commitConnection();
+        } catch (SQLException ex) {
+            handleException(ex);
+        }
+        dictionary.closeAllResources();
     }
     public void migrateDemographics(List<Demographics> demoList, int locationID) {
         savePersons(demoList);
