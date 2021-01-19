@@ -29,7 +29,7 @@ public class LamisClinicalDictionary {
 
     private FileManager mgr;
     private DisplayScreen screen;
-    private List<LamisClinicalCoding> lamisLabCodingList = new ArrayList<LamisClinicalCoding>();
+    private List<LamisClinicalCoding> lamisClinicalCodingList = new ArrayList<LamisClinicalCoding>();
     private List<LamisRegimenMap> lamisRegimenCodingList = new ArrayList<LamisRegimenMap>();
     private final static int CREATOR = 1;
     private final static int CLINICAL_FORM_ID = 14;
@@ -43,7 +43,7 @@ public class LamisClinicalDictionary {
 
     public void loadMapFiles() {
         List<String[]> dataArr = mgr.loadAllDataInFolder("map", "CLINICALCODING.csv");
-        lamisLabCodingList = Converter.convertToLamisClinicalCodingList(dataArr);
+        lamisClinicalCodingList = Converter.convertToLamisClinicalCodingList(dataArr);
     }
      private void loadRegimenCodingMapFiles() {
         List<String[]> dataArr = mgr.loadAllDataInFolder("map", "Regimenmap.csv");
@@ -52,7 +52,7 @@ public class LamisClinicalDictionary {
 
     public LamisClinicalCoding getAnswerConceptForCodedTypeID(int pos, String answer) {
         LamisClinicalCoding code = null;
-        for (LamisClinicalCoding clinicalCoding : lamisLabCodingList) {
+        for (LamisClinicalCoding clinicalCoding : lamisClinicalCodingList) {
             if (clinicalCoding.getDataType().equalsIgnoreCase("CODED") && clinicalCoding.getVariablePosition() == pos && clinicalCoding.getLamisAnswer().equalsIgnoreCase(answer)) {
                 code = clinicalCoding;
             }
@@ -62,7 +62,7 @@ public class LamisClinicalDictionary {
 
     public LamisClinicalCoding getQuestionConceptForNonCodedTypeID(int pos) {
         LamisClinicalCoding code = null;
-        for (LamisClinicalCoding clinicalCoding : lamisLabCodingList) {
+        for (LamisClinicalCoding clinicalCoding : lamisClinicalCodingList) {
             if (clinicalCoding.getVariablePosition() == pos) {
                 code = clinicalCoding;
             }
@@ -123,8 +123,9 @@ public class LamisClinicalDictionary {
         if (StringUtils.isNotEmpty(regimenType) && clinicalCoding != null) {
             obs = getCodedObsFromClinical(REGIMEN_TYPE_POS, clinical, regimenType, locationID);//RegimenType
             obsList.add(obs);
+        }
             String regimen = clinical.getRegimen();
-            regimenMap=getRegimenCode(regimen);
+            regimenMap=getRegimenCode(clinical);
             if (StringUtils.isNotEmpty(regimen) && regimenMap != null) {
                 obs = new Obs();
                 obs.setPatientID(clinical.getPatientID());
@@ -141,7 +142,7 @@ public class LamisClinicalDictionary {
                 obsList.add(obs);
             }
 
-        }
+        
         int BODY_WEIGHT_POS = 12;
         clinicalCoding = getQuestionConceptForNonCodedTypeID(BODY_WEIGHT_POS);
         if (clinical.getWeight() != 0.0 && clinicalCoding!=null) {
@@ -310,7 +311,19 @@ public class LamisClinicalDictionary {
         }
         return ans;
     }
-
+    public LamisRegimenMap getRegimenCode(LamisClinical clinical) {
+        //int valueCoded = 0;
+        LamisRegimenMap regimenMap = null;
+        for (LamisRegimenMap coding : lamisRegimenCodingList) {
+            if (StringUtils.equalsIgnoreCase(coding.getColumnName(),clinical.getRegimenType())
+                &&
+                    StringUtils.equalsIgnoreCase(coding.getLamisAnswerName(), clinical.getRegimen())) {
+                regimenMap = coding;
+                //valueCoded = code.getOMRSAnswerID();
+            }
+        }
+        return regimenMap;
+    }
     public LamisRegimenMap getRegimenCode(String regimenText) {
         //int valueCoded = 0;
         LamisRegimenMap regimenMap = null;
