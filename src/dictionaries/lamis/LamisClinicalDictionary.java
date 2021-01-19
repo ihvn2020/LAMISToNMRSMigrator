@@ -322,5 +322,8 @@ public class LamisClinicalDictionary {
         }
         return regimenMap;
     }
+    public void closeAllResources() {
+        mgr.closeAll();
+    }
 
 }
