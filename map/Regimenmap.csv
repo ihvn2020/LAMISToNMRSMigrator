@@ -22,9 +22,9 @@ Regimen/Drugs,ART First Line Adult,TDF/FTC(300/200mg)+NVP(200mg),11,1,164506,164
 Regimen/Drugs,ART First Line Adult,d4T(30mg)+3TC(150mg)+EFV(600mg),8,1,164506,160104
 Regimen/Drugs,ART First Line Adult,d4T(30mg)+3TC(150mg)+NVP(200mg),7,1,164506,792
 Regimen/Drugs,ART Second Line Adult,3TC/FTC(300/300mg)+ATV/r(300/100mg),102,2,164513,166091
-Regimen/Drugs,ART Second Line Adult,3TC/FTC(300/300mg)+EFV(600mg),103,2,164513,
+Regimen/Drugs,ART Second Line Adult,3TC/FTC(300/300mg)+EFV(600mg),103,2,164513,166091
 Regimen/Drugs,ART Second Line Adult,3TC/FTC(300/300mg)+LPV/r(200/50mg),104,2,164513,166094
-Regimen/Drugs,ART Second Line Adult,3TC/FTC(300/300mg)+NVP(200mg),105,2,164513,
+Regimen/Drugs,ART Second Line Adult,3TC/FTC(300/300mg)+NVP(200mg),105,2,164513,166091
 Regimen/Drugs,ART Second Line Adult,ABC(300mg)+3TC(150mg)+ATV/r(300/100mg),111,2,164513,166092
 Regimen/Drugs,ART Second Line Adult,ABC(300mg)+3TC(150mg)+LPV/r(200/50mg),112,2,164513,162200
 Regimen/Drugs,ART Second Line Adult,ABC(300mg)+DDI(400mg)+IDV/r(400/50mg),15,2,164513,166093

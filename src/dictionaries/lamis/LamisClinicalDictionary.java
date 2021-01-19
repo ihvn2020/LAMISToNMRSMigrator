@@ -213,26 +213,26 @@ public class LamisClinicalDictionary {
             obs = getCodedObsFromClinical(BREASTFEEDING_POSITION, clinical, breastfeedingStatus, locationID);
             obsList.add(obs);
         }
-        int OI_POSITION = 20;
+        int OI_POSITION = 22;
         String oiID = clinical.getOiID();
         clinicalCoding = getAnswerConceptForCodedTypeID(OI_POSITION, oiID);
         if (StringUtils.isNotEmpty(oiID) && clinicalCoding != null) {
             obs = getCodedObsFromClinical(OI_POSITION, clinical, oiID, locationID);
             obsList.add(obs);
         }
-        int ADVERSE_DRUG_REACTION_POS=22;
+        int ADVERSE_DRUG_REACTION_POS=24;
         String adrID=clinical.getAdverseDrugReactionID();
         if(StringUtils.isNotEmpty(adrID)){
             obs=getCodedObsFromClinical(ADVERSE_DRUG_REACTION_POS, clinical, adrID, locationID);
             obsList.add(obs);
         }
-        int ADHERENCE_LEVEL_POS=23;
+        int ADHERENCE_LEVEL_POS=25;
         String adherenceLevel=clinical.getAdherenceLevel();
         if(StringUtils.isNotEmpty(adherenceLevel)){
             obs=getCodedObsFromClinical(ADHERENCE_LEVEL_POS, clinical, adherenceLevel, locationID);
             obsList.add(obs);
         }
-        int NEXT_APPOINTMENT_DATE_POS=26;
+        int NEXT_APPOINTMENT_DATE_POS=28;
         Date nextAppointmentDate=clinical.getNextAppointmentDate();
         if(nextAppointmentDate!=null){
             obs=getDateObsFromClinical(NEXT_APPOINTMENT_DATE_POS, clinical, nextAppointmentDate, locationID);
