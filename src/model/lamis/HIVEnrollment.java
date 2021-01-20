@@ -14,6 +14,62 @@ import java.util.Date;
 public class HIVEnrollment {
 
     /**
+     * @return the nextOfKinName
+     */
+    public String getNextOfKinName() {
+        return nextOfKinName;
+    }
+
+    /**
+     * @param nextOfKinName the nextOfKinName to set
+     */
+    public void setNextOfKinName(String nextOfKinName) {
+        this.nextOfKinName = nextOfKinName;
+    }
+
+    /**
+     * @return the nextOfKinAddress
+     */
+    public String getNextOfKinAddress() {
+        return nextOfKinAddress;
+    }
+
+    /**
+     * @param nextOfKinAddress the nextOfKinAddress to set
+     */
+    public void setNextOfKinAddress(String nextOfKinAddress) {
+        this.nextOfKinAddress = nextOfKinAddress;
+    }
+
+    /**
+     * @return the nextOfKinPhone
+     */
+    public String getNextOfKinPhone() {
+        return nextOfKinPhone;
+    }
+
+    /**
+     * @param nextOfKinPhone the nextOfKinPhone to set
+     */
+    public void setNextOfKinPhone(String nextOfKinPhone) {
+        this.nextOfKinPhone = nextOfKinPhone;
+    }
+
+    /**
+     * @return the nextOfKinrelationship
+     */
+    public String getNextOfKinrelationship() {
+        return nextOfKinrelationship;
+    }
+
+    /**
+     * @param nextOfKinrelationship the nextOfKinrelationship to set
+     */
+    public void setNextOfKinrelationship(String nextOfKinrelationship) {
+        this.nextOfKinrelationship = nextOfKinrelationship;
+    }
+
+    /**
      * @return the phone
      */
     public String getPhone() {
@@ -882,5 +938,10 @@ public class HIVEnrollment {
     private Date viralLoadDueDate;
     private String viralLoadType;
     private String smsConsent;
+    private String nextOfKinName;
+    private String nextOfKinAddress;
+    private String nextOfKinPhone;
+    private String nextOfKinrelationship;
+    
 
 }

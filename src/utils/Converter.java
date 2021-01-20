@@ -204,24 +204,24 @@ public class Converter {
 
     public static Demographics convertToLamisDemographics(String[] data, int locationID) {
         Demographics demo = new Demographics();
-        demo.setPatientID(Converter.convertToInt(data[4]));
+        demo.setPatientID(Converter.convertToInt(data[0]));
         demo.setPatientUUID(Converter.generateUUID());
-        demo.setPepfarID(data[6]);
-        demo.setHospID(data[5]);
-        demo.setFirstName(data[8]);
-        demo.setLastName(data[7]);
-        if(!StringUtils.isEmpty(data[21])){
-            demo.setAdultEnrollmentDt(Converter.stringToDate(data[21]));
+        demo.setPepfarID(StringUtils.leftPad(data[3],5,"0"));
+        demo.setHospID(data[2]);
+        demo.setFirstName(Converter.UnscrambleCharacters(data[5]));
+        demo.setLastName(Converter.UnscrambleCharacters(data[4]));
+        if(!StringUtils.isEmpty(data[30])){
+            demo.setAdultEnrollmentDt(Converter.stringToDate(data[30]));
         }else{
-            demo.setAdultEnrollmentDt(Converter.stringToDate(data[22]));
+            demo.setAdultEnrollmentDt(Converter.stringToDate(data[23]));
         }
         
-        demo.setDateOfBirth(Converter.stringToDate(data[9]));
-        demo.setGender(Converter.codeGender(data[12]));
-        demo.setAddress1(data[18]);
-        demo.setAddress_state(data[16]);
-        demo.setAddress_lga(data[17]);
-        demo.setPhone_number(data[19]);
+        demo.setDateOfBirth(Converter.stringToDate(data[7]));
+        demo.setGender(Converter.codeGender(data[6]));
+        demo.setAddress1(Converter.UnscrambleCharacters(data[13]));
+        demo.setAddress_state(data[15]);
+        demo.setAddress_lga(data[16]);
+        demo.setPhone_number(Converter.UnscrambleNumbers(data[14]));
         demo.setCreatorID(ADMIN_USER);
         demo.setDateCreated(new Date());
         demo.setLocationID(locationID);
@@ -506,72 +506,77 @@ public class Converter {
         }
         return hivEnrollmentList;
     }
-
+    
     public static HIVEnrollment convertToHIVEnrollment(String[] dataArr) {
         HIVEnrollment hivEnrollment = new HIVEnrollment();
-        hivEnrollment.setFacilityID(Converter.convertToInt(dataArr[0]));
-        hivEnrollment.setFacilityName(dataArr[1]);
-        hivEnrollment.setState(dataArr[2]);
-        hivEnrollment.setLga(dataArr[3]);
-        hivEnrollment.setPatientID(Converter.convertToInt(dataArr[4]));
-        hivEnrollment.setHospNo(dataArr[5]);
-        hivEnrollment.setUniqueID(dataArr[6]);
-        hivEnrollment.setSurname(dataArr[7]);
-        hivEnrollment.setOtherNames(dataArr[8]);
-        hivEnrollment.setDateOfBirth(Converter.stringToDate(dataArr[9]));
-        hivEnrollment.setAge(Converter.convertToInt(dataArr[10]));
-        hivEnrollment.setAgeUnit(dataArr[11]);
-        hivEnrollment.setGender(dataArr[12]);
-        hivEnrollment.setMaritalStatus(dataArr[13]);
-        hivEnrollment.setEducation(dataArr[14]);
-        hivEnrollment.setOccupation(dataArr[15]);
-        hivEnrollment.setStateOfResidence(dataArr[16]);
-        hivEnrollment.setLgaOfResidence(dataArr[17]);
-        hivEnrollment.setAddress(dataArr[18]);
-        hivEnrollment.setPhone(dataArr[19]);
-        hivEnrollment.setCareEntryPoint(dataArr[20]);
-        if(StringUtils.isEmpty(dataArr[21])){
-            hivEnrollment.setDateConfirmedHIVTest(Converter.stringToDate(dataArr[22]));
-        }else{
-            hivEnrollment.setDateConfirmedHIVTest(Converter.stringToDate(dataArr[21]));
-        }
+        hivEnrollment.setPatientID(Converter.convertToInt(dataArr[0]));
+        hivEnrollment.setFacilityID(Converter.convertToInt(dataArr[1]));
+        //hivEnrollment.setFacilityName(dataArr[1]);
+        hivEnrollment.setState(dataArr[15]);
+        hivEnrollment.setLga(dataArr[16]);
+        
+        hivEnrollment.setHospNo(dataArr[2]);
+        hivEnrollment.setUniqueID(StringUtils.leftPad(dataArr[3], 5, "0"));
+        hivEnrollment.setSurname(Converter.UnscrambleCharacters(dataArr[4]));
+        hivEnrollment.setOtherNames(Converter.UnscrambleCharacters(dataArr[5]));
+        hivEnrollment.setDateOfBirth(Converter.stringToDate(dataArr[7]));
+        hivEnrollment.setAge(Converter.convertToInt(dataArr[8]));
+        hivEnrollment.setAgeUnit(dataArr[9]);
+        hivEnrollment.setGender(dataArr[6]);
+        hivEnrollment.setMaritalStatus(dataArr[10]);
+        hivEnrollment.setEducation(dataArr[11]);
+        hivEnrollment.setOccupation(dataArr[12]);
+        hivEnrollment.setStateOfResidence(dataArr[15]);
+        hivEnrollment.setLgaOfResidence(dataArr[16]);
+        hivEnrollment.setAddress(Converter.UnscrambleCharacters(dataArr[13]));
+        hivEnrollment.setPhone(Converter.UnscrambleNumbers(dataArr[14]));
+        hivEnrollment.setCareEntryPoint(dataArr[21]);
+        //if(StringUtils.isEmpty(dataArr[21])){
+            hivEnrollment.setDateConfirmedHIVTest(Converter.stringToDate(dataArr[23]));
+        //}else{
+            //hivEnrollment.setDateConfirmedHIVTest(Converter.stringToDate(dataArr[21]));
+        //}
         //hivEnrollment.setDateConfirmedHIVTest(Converter.stringToDate(dataArr[21]));
-        hivEnrollment.setDateRegistration(Converter.stringToDate(dataArr[22]));
-        hivEnrollment.setStatusAtRegistration(dataArr[23]);
-        hivEnrollment.setCurrentStatus(dataArr[24]);
-        hivEnrollment.setDateCurrentStatus(Converter.stringToDate(dataArr[25]));
-        hivEnrollment.setArtStartDate(Converter.stringToDate(dataArr[26]));
-        hivEnrollment.setBaselineCD4(Converter.convertToDouble(dataArr[27]));
-        hivEnrollment.setBaselineCD4Percent(Converter.convertToDouble(dataArr[28]));
-        hivEnrollment.setSystolicBP(Converter.convertToDouble(dataArr[29]));
-        hivEnrollment.setDiastolicBP(Converter.convertToDouble(dataArr[30]));
-        hivEnrollment.setBaselineClinicStage(dataArr[31]);
-        hivEnrollment.setBaselineFunctionalStatus(dataArr[32]);
-        hivEnrollment.setBaselineWeight(Converter.convertToDouble(dataArr[33]));
-        hivEnrollment.setBaselineHeight(Converter.convertToDouble(dataArr[34]));
-        hivEnrollment.setFirstRegimenLine(dataArr[35]);
-        hivEnrollment.setFirstRegimen(dataArr[36]);
-        hivEnrollment.setFirstNRTI(dataArr[37]);
-        hivEnrollment.setFirstNNRTI(dataArr[38]);
-        hivEnrollment.setCurrentRegimenLine(dataArr[39]);
-        hivEnrollment.setCurrentRegimen(dataArr[40]);
-        hivEnrollment.setCurrentNRTI(dataArr[41]);
-        hivEnrollment.setCurrentNNRTI(dataArr[42]);
-        hivEnrollment.setDateSubstitutedOrSwitched(Converter.stringToDate(dataArr[43]));
-        hivEnrollment.setDateOfLastRefill(Converter.stringToDate(dataArr[44]));
-        hivEnrollment.setLastRefillDurationDays(Converter.convertToDouble(dataArr[45]));
-        hivEnrollment.setDateOfNextRefill(Converter.stringToDate(dataArr[46]));
-        hivEnrollment.setLastClinicStage(dataArr[47]);
-        hivEnrollment.setDateOfLastClinic(Converter.stringToDate(dataArr[48]));
-        hivEnrollment.setDateOfNextClinic(Converter.stringToDate(dataArr[49]));
-        hivEnrollment.setLastCD4(Converter.convertToDouble(dataArr[50]));
-        hivEnrollment.setLastCD4p(Converter.convertToDouble(dataArr[51]));
-        hivEnrollment.setDateOfLastCD4(Converter.stringToDate(dataArr[52]));
-        hivEnrollment.setLastViralLoad(Converter.convertToDouble(dataArr[53]));
-        hivEnrollment.setDateOfLastViralLoad(Converter.stringToDate(dataArr[54]));
-        hivEnrollment.setViralLoadDueDate(Converter.stringToDate(dataArr[55]));
-        hivEnrollment.setViralLoadType(dataArr[56]);
-        hivEnrollment.setSmsConsent(dataArr[57]);
+        hivEnrollment.setDateRegistration(Converter.stringToDate(dataArr[30]));
+        hivEnrollment.setStatusAtRegistration(dataArr[31]);
+        hivEnrollment.setCurrentStatus(dataArr[36]);
+        hivEnrollment.setDateCurrentStatus(Converter.stringToDate(dataArr[37]));
+        hivEnrollment.setArtStartDate(Converter.stringToDate(dataArr[35]));
+        //hivEnrollment.setBaselineCD4(Converter.convertToDouble(dataArr[27]));
+        //hivEnrollment.setBaselineCD4Percent(Converter.convertToDouble(dataArr[28]));
+        //hivEnrollment.setSystolicBP(Converter.convertToDouble(dataArr[29]));
+        //hivEnrollment.setDiastolicBP(Converter.convertToDouble(dataArr[30]));
+        //hivEnrollment.setBaselineClinicStage(dataArr[31]);
+        //hivEnrollment.setBaselineFunctionalStatus(dataArr[32]);
+        //hivEnrollment.setBaselineWeight(Converter.convertToDouble(dataArr[33]));
+        //hivEnrollment.setBaselineHeight(Converter.convertToDouble(dataArr[34]));
+        //hivEnrollment.setFirstRegimenLine(dataArr[35]);
+        //hivEnrollment.setFirstRegimen(dataArr[36]);
+        //hivEnrollment.setFirstNRTI(dataArr[37]);
+        //hivEnrollment.setFirstNNRTI(dataArr[38]);
+        hivEnrollment.setCurrentRegimenLine(dataArr[38]);
+        hivEnrollment.setCurrentRegimen(dataArr[39]);
+        //hivEnrollment.setCurrentNRTI(dataArr[41]);
+        //hivEnrollment.setCurrentNNRTI(dataArr[42]);
+        //hivEnrollment.setDateSubstitutedOrSwitched(Converter.stringToDate(dataArr[43]));
+        hivEnrollment.setDateOfLastRefill(Converter.stringToDate(dataArr[48]));
+        hivEnrollment.setLastRefillDurationDays(Converter.convertToDouble(dataArr[50]));
+        hivEnrollment.setDateOfNextRefill(Converter.stringToDate(dataArr[49]));
+        hivEnrollment.setLastClinicStage(dataArr[40]);
+        hivEnrollment.setDateOfLastClinic(Converter.stringToDate(dataArr[52]));
+        hivEnrollment.setDateOfNextClinic(Converter.stringToDate(dataArr[53]));
+        hivEnrollment.setLastCD4(Converter.convertToDouble(dataArr[42]));
+        hivEnrollment.setLastCD4p(Converter.convertToDouble(dataArr[43]));
+        hivEnrollment.setDateOfLastCD4(Converter.stringToDate(dataArr[44]));
+        hivEnrollment.setLastViralLoad(Converter.convertToDouble(dataArr[41]));
+        hivEnrollment.setDateOfLastViralLoad(Converter.stringToDate(dataArr[45]));
+        hivEnrollment.setViralLoadDueDate(Converter.stringToDate(dataArr[46]));
+        hivEnrollment.setViralLoadType(dataArr[47]);
+        //hivEnrollment.setSmsConsent(dataArr[57]);
+        hivEnrollment.setNextOfKinName(Converter.UnscrambleCharacters(dataArr[17]));
+        hivEnrollment.setNextOfKinAddress(Converter.UnscrambleCharacters(dataArr[18]));
+        hivEnrollment.setNextOfKinPhone(Converter.UnscrambleNumbers(dataArr[19]));
+        hivEnrollment.setNextOfKinrelationship(dataArr[20]);
         return hivEnrollment;
     }
 

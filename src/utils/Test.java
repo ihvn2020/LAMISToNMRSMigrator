@@ -35,7 +35,8 @@ public class Test {
 
     public static void main(String[] args) throws ParseException
     {
-         System.out.println(Converter.UnscrambleCharacters("S@U^!~U"));
+         //System.out.println(Converter.UnscrambleCharacters("S@U^!~U"));
+         System.out.println(StringUtils.leftPad("23", 5,"0"));
     }
 }
  

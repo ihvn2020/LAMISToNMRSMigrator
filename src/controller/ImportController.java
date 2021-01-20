@@ -62,7 +62,7 @@ public class ImportController {
         } else if (exportType.equalsIgnoreCase("Demographics")) {
             dao.migrateDemographics(csvFilePath, locationID);
             dao.migrateHIVEnrollments(csvFilePath, locationID);
-            dao.migrateARTCommencement(csvFilePath, locationID);// Migrate ART Commencement
+            //dao.migrateARTCommencement(csvFilePath, locationID);// Migrate ART Commencement
         } else if (exportType.equalsIgnoreCase("Clinical")) {
             dao.migrateClinicals(csvFilePath, locationID);
         }else if(exportType.equalsIgnoreCase("Pharmacy")){
