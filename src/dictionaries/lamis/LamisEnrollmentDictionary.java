@@ -30,6 +30,9 @@ public class LamisEnrollmentDictionary {
     private List<CareCardInitialCoding> codingList=new ArrayList<CareCardInitialCoding>();
     private final static int DATE_CONFIRMED_POSITIVE_CONCEPT_ID=160554;
     private final static int DATE_ART_STARTED_CONCEPT_ID=159599;
+    private final static int NEXT_OF_KIN_NAME_CONCEPT_ID=162729;
+    private final static int NEXT_OF_KIN_PHONE_CONEPT_ID=164946;
+    
     private final static int PHONE_NUMBER_CONCEPT_ID=159635;
     private final static int HIV_ENROLLMENT_FORM=23;
     public LamisEnrollmentDictionary(){
@@ -54,32 +57,40 @@ public class LamisEnrollmentDictionary {
         Obs obs=null;
         CareCardInitialCoding coding=null;
         
-        //Date ART Started
-        //obs=createDateObs(hivEnrollment, DATE_ART_STARTED_CONCEPT_ID, hivEnrollment.getArtStartDate(), locationID);
-        //obsList.add(obs);
+        //Next of Kin Name
+        obs=createValueTextObs(hivEnrollment, NEXT_OF_KIN_NAME_CONCEPT_ID, hivEnrollment.getNextOfKinName(), locationID);
+        obsList.add(obs);
+        
+        //Next of Kin Relationship
+        coding=getCodingValue(20, hivEnrollment.getNextOfKinrelationship());
+        if(coding!=null){
+            obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
+            obsList.add(obs);
+        }
+             
         //Date Confirmed Positive
         obs=createDateObs(hivEnrollment, DATE_CONFIRMED_POSITIVE_CONCEPT_ID, hivEnrollment.getDateConfirmedHIVTest(), locationID);
         obsList.add(obs);
         //Marrital Status
-        coding=getCodingValue(13, hivEnrollment.getMaritalStatus());
+        coding=getCodingValue(10, hivEnrollment.getMaritalStatus());
         if(coding!=null){
             obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);
         }
         //Education Status
-        coding=getCodingValue(13, hivEnrollment.getEducation());
+        coding=getCodingValue(11, hivEnrollment.getEducation());
         if(coding!=null){
             obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);
         }
         //Occupation
-        coding=getCodingValue(15, hivEnrollment.getOccupation());
+        coding=getCodingValue(12, hivEnrollment.getOccupation());
         if(coding!=null){
             obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);
         }
         //Care Entry Point
-        coding=getCodingValue(20, hivEnrollment.getCareEntryPoint());
+        coding=getCodingValue(21, hivEnrollment.getCareEntryPoint());
         if(coding!=null){
             obs=createCodedObs(hivEnrollment, coding.getNmrsQuestionConceptID(), coding.getNmrsAnswerConceptID(), locationID);
             obsList.add(obs);

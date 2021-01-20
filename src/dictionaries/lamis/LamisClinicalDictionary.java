@@ -315,7 +315,7 @@ public class LamisClinicalDictionary {
         //int valueCoded = 0;
         LamisRegimenMap regimenMap = null;
         for (LamisRegimenMap coding : lamisRegimenCodingList) {
-            if (StringUtils.equalsIgnoreCase(coding.getColumnName(),clinical.getRegimenType())
+            if (StringUtils.equalsIgnoreCase(coding.getLamisVariableName(),clinical.getRegimenType())
                 &&
                     StringUtils.equalsIgnoreCase(coding.getLamisAnswerName(), clinical.getRegimen())) {
                 regimenMap = coding;
