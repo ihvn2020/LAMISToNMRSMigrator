@@ -795,6 +795,7 @@ USER_ID	31
         drug.setUploaded(data[17]);
         drug.setTimeUploaded(Converter.stringToDate(data[18]));
         drug.setUserID(Converter.convertToInt(data[19]));
+        drug.setDmocType(data[21]);
         return drug;
     }
 

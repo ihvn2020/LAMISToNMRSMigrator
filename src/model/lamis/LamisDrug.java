@@ -14,6 +14,20 @@ import java.util.Date;
 public class LamisDrug {
 
     /**
+     * @return the dmocType
+     */
+    public String getDmocType() {
+        return dmocType;
+    }
+
+    /**
+     * @param dmocType the dmocType to set
+     */
+    public void setDmocType(String dmocType) {
+        this.dmocType = dmocType;
+    }
+
+    /**
      * @return the exist
      */
     public boolean isExist() {
@@ -61,6 +75,7 @@ public class LamisDrug {
     private String uploaded;
     private Date timeUploaded;
     private int userID;
+    private String dmocType;
     private int obsGroupID;
     private boolean exist;
 
