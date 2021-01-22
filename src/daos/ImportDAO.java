@@ -1107,22 +1107,24 @@ public class ImportDAO {
     }
 
     public void migrateMigrateForms(Set<Obs> obsSet, int locationID) {
-        List<Obs> obsList = new ArrayList<Obs>(obsSet);
-        Set<Visit> visitSet = createVisitSet(obsList, locationID);
+        if (!obsSet.isEmpty()) {
+            List<Obs> obsList = new ArrayList<Obs>(obsSet);
+            Set<Visit> visitSet = createVisitSet(obsList, locationID);
 
-        Set<Encounter> encounterSet = createEncounterSet(obsList, locationID);
+            Set<Encounter> encounterSet = createEncounterSet(obsList, locationID);
 
-        //Set<EncounterProvider> providerSet = createEncounterProvider(encounterSet);
-        preprocessVisits(visitSet);
-        migrateVisits(visitSet);
-        preprocessEncounters(encounterSet);
-        migrateEncounter(encounterSet, locationID);
-        postProcessEncounters(encounterSet);
-        Set<EncounterProvider> providerSet = createEncounterProvider(encounterSet);
-        preprocessEncounterProviders(providerSet);
-        migrateEncounterProvider(providerSet);
-        preprocessObsList(obsList);
-        migrateObs(obsList, locationID);
+            //Set<EncounterProvider> providerSet = createEncounterProvider(encounterSet);
+            preprocessVisits(visitSet);
+            migrateVisits(visitSet);
+            preprocessEncounters(encounterSet);
+            migrateEncounter(encounterSet, locationID);
+            postProcessEncounters(encounterSet);
+            Set<EncounterProvider> providerSet = createEncounterProvider(encounterSet);
+            preprocessEncounterProviders(providerSet);
+            migrateEncounterProvider(providerSet);
+            preprocessObsList(obsList);
+            migrateObs(obsList, locationID);
+        }
     }
 
     public boolean isExistingVisit(Date startDate, int patientID) {

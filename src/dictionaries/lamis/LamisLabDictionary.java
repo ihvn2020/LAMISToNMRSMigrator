@@ -6,6 +6,7 @@
 package dictionaries.lamis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -291,6 +292,7 @@ public class LamisLabDictionary {
         if (indicationObs != null) {
             obsList.add(indicationObs);
         }
+        obsList.removeAll(Collections.singleton(null));
         return obsList;
     }
 
