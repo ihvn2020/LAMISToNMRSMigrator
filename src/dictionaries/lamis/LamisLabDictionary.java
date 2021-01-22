@@ -272,11 +272,12 @@ public class LamisLabDictionary {
 
     public List<Obs> convertToObs(LamisLabResult labResult, int locationID) {
         List<Obs> obsList = new ArrayList<Obs>();
-        Obs dateOrderedObs, dateReportedObs, dateSampleCollectedObs, reportedByObs, indicationObs = null, labTestObs;
+        Obs dateOrderedObs, dateReportedObs, dateSampleCollectedObs,labNoObs, reportedByObs, indicationObs = null, labTestObs;
         dateOrderedObs = createDateOrderedObs(labResult, locationID);
         dateReportedObs = createDateReportedObs(labResult, locationID);
         dateSampleCollectedObs = createDateSampleCollectedObs(labResult, locationID);
         reportedByObs = createReportedByObs(labResult, locationID);
+        labNoObs=createLabNumberObs(labResult, locationID);
         if (StringUtils.isNotEmpty(labResult.getComment())) {
             indicationObs = createIndicationObs(labResult, locationID);
         }
@@ -286,6 +287,7 @@ public class LamisLabDictionary {
         obsList.add(dateSampleCollectedObs);
         obsList.add(reportedByObs);
         obsList.add(dateReportedObs);
+        obsList.add(labNoObs);
         if (indicationObs != null) {
             obsList.add(indicationObs);
         }
