@@ -32,6 +32,7 @@ public class LamisLabDictionary {
     private final static int DATE_LAB_REPORTED_CONCEPT = 165414;
     private final static int DATE_SAMPLE_COLLECTED_CONCEPT = 159951;
     private final static int DATE_ORDERED_CONCEPT = 164989;
+    private final static int LAB_NUMBER_CONCEPT = 164409;
     private final static int COMMENT_CONCEPT = 164980;
     private final static int NMRS_LAB_FORM_ID = 21;
     private final static String REPORTED_BY_NAME = "1 - eHealth Developer";
@@ -125,6 +126,25 @@ public class LamisLabDictionary {
         return reportedByObs;
     }
 
+    public Obs createLabNumberObs(LamisLabResult labResult, int locationID) {
+        Obs labNoObs = null;
+        if (!StringUtils.isEmpty(labResult.getLabNo())) {
+            labNoObs = new Obs();
+            labNoObs.setPatientID(labResult.getPatientID());
+            labNoObs.setVisitDate(labResult.getDateCollected());
+            labNoObs.setConceptID(LAB_NUMBER_CONCEPT);
+            labNoObs.setValueText(labResult.getLabNo());
+            labNoObs.setDateEntered(labResult.getTimestamp());
+            labNoObs.setLocationID(locationID);
+            labNoObs.setFormID(NMRS_LAB_FORM_ID);
+            labNoObs.setUuid(Converter.generateUUID());
+            labNoObs.setProviderID(NMRS_PROVIDER_ID);
+            labNoObs.setCreator(NMRS_CREATOR_ID);
+            labNoObs.setVoided(VOIDED);
+        }
+        return labNoObs;
+    }
+
     public Obs createDateOrderedObs(LamisLabResult labResult, int locationID) {
         Obs dateOrderedObs = new Obs();
         dateOrderedObs.setPatientID(labResult.getPatientID());
@@ -215,7 +235,7 @@ public class LamisLabDictionary {
         Obs labTestObs = null;
         LamisLabCoding labCode = getCodingObj(labResult.getLabtestID());
         if (labCode != null) {
-            labTestObs=new Obs();
+            labTestObs = new Obs();
             labTestObs.setPatientID(labResult.getPatientID());
             labTestObs.setVisitDate(labResult.getDateCollected());
             labTestObs.setConceptID(getLabTestConceptID(labResult));
@@ -262,9 +282,9 @@ public class LamisLabDictionary {
         }
         return obsList;
     }
-     public void closeAllResources() {
+
+    public void closeAllResources() {
         mgr.closeAll();
     }
-    
 
 }
