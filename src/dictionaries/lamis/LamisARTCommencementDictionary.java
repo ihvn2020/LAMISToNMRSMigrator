@@ -72,12 +72,16 @@ public class LamisARTCommencementDictionary {
             obsList.add(obs);
         }
         //Baseline Weight
-        obs = createNumericObs(hivEnrollment, BASELINE_WEIGHT_CONCEPT_ID, hivEnrollment.getBaselineWeight(), locationID);
-        obsList.add(obs);
+        if (hivEnrollment.getBaselineWeight() != 0.0) {
+            obs = createNumericObs(hivEnrollment, BASELINE_WEIGHT_CONCEPT_ID, hivEnrollment.getBaselineWeight(), locationID);
+            obsList.add(obs);
+        }
 
         //Baseline Height
-        obs = createNumericObs(hivEnrollment, BASELINE_HEIGHT_CONCEPT_ID, hivEnrollment.getBaselineHeight(), locationID);
-        obsList.add(obs);
+        if (hivEnrollment.getBaselineHeight() != 0.0) {
+            obs = createNumericObs(hivEnrollment, BASELINE_HEIGHT_CONCEPT_ID, hivEnrollment.getBaselineHeight(), locationID);
+            obsList.add(obs);
+        }
 
         //Baseline Clinical Stagging
         coding = getCodingValue(31, hivEnrollment.getBaselineClinicStage());
