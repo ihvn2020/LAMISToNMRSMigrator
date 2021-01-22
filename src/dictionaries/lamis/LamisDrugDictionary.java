@@ -35,6 +35,7 @@ public class LamisDrugDictionary {
     private final static int VOIDED = 0;
     private final static Map<String, Integer> regimenLineMap = new HashMap<String, Integer>();
     private final static Map<String, Integer> treatmentTypeMap = new HashMap<String, Integer>();
+    private final static Map<String, Integer> dmocCodeMap = new HashMap<String, Integer>();
 
     /* List of NMRS Concepts used in the migration */
     private final static int PHARMACY_FORM_ID = 27;
@@ -57,6 +58,7 @@ public class LamisDrugDictionary {
     private final static int FREQUENCY_CONCEPT_2BD = 165721;
     private final static int FFREQUENCY_CONCEPT_3BD = 166056;
     private final static int FFREQUENCY_CONCEPT_4BD = 166057;
+    private final static int DIFFERENTIATED_SERVICE_DELIVERY_MODEL=166148;
     private final static String ORDERED_BY = "1 - Super User";
 
     public LamisDrugDictionary() {
@@ -167,6 +169,9 @@ public class LamisDrugDictionary {
             //Ordered by date 164989
             obs = createDateObs(drug, ORDERED_BY_CONCEPT_ID, drug.getVisitDate(), locationID);
             obsList.add(obs);
+            
+            //Differentiated Service Delivery Model 166148
+            obs=createCodedObs(drug, DIFFERENTIATED_SERVICE_DELIVERY_MODEL, valueCoded, locationID);
 
         }
         
@@ -339,6 +344,12 @@ public class LamisDrugDictionary {
         treatmentTypeMap.put("6", 165658);
         treatmentTypeMap.put("7", 165942);
         treatmentTypeMap.put("9", 165941);
+    }
+    private void loadDMOCCodes(){
+        dmocCodeMap.put("MMD",166151);//Refill Fast Track
+        dmocCodeMap.put("MMS",166149);//Multimonth Scripting
+        dmocCodeMap.put("CPARP",166134);//Community Pharmacy
+        dmocCodeMap.put("CARC",166135);//Community ART
     }
 
     private void loadDrugCodingMapFiles() {
