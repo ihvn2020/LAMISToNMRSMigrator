@@ -167,11 +167,11 @@ public class LamisDrugDictionary {
             obsList.add(obs);
 
             //Ordered by date 164989
-            obs = createDateObs(drug, ORDERED_BY_CONCEPT_ID, drug.getVisitDate(), locationID);
+            obs = createDateObs(drug, ORDERED_BY_DATE_CONCEPT_ID, drug.getVisitDate(), locationID);
             obsList.add(obs);
             
             //Differentiated Service Delivery Model 166148
-            obs=createCodedObs(drug, DIFFERENTIATED_SERVICE_DELIVERY_MODEL, valueCoded, locationID);
+            //obs=createCodedObs(drug, DIFFERENTIATED_SERVICE_DELIVERY_MODEL, valueCoded, locationID);
 
         }
         
