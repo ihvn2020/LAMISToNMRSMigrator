@@ -79,34 +79,40 @@ public class LamisLabDictionary {
     }
 
     public Obs createDateReportedObs(LamisLabResult labResult, int locationID) {
-        Obs dateReportedObs = new Obs();
-        dateReportedObs.setPatientID(labResult.getPatientID());
-        dateReportedObs.setVisitDate(labResult.getDateCollected());
-        dateReportedObs.setConceptID(DATE_LAB_REPORTED_CONCEPT);
-        dateReportedObs.setValueDate(labResult.getDateReported());
-        dateReportedObs.setDateEntered(labResult.getTimestamp());
-        dateReportedObs.setLocationID(locationID);
-        dateReportedObs.setFormID(NMRS_LAB_FORM_ID);
-        dateReportedObs.setUuid(Converter.generateUUID());
-        dateReportedObs.setProviderID(NMRS_PROVIDER_ID);
-        dateReportedObs.setCreator(NMRS_CREATOR_ID);
-        dateReportedObs.setVoided(VOIDED);
+        Obs dateReportedObs =null;
+        if (labResult.getDateReported() != null) {
+            dateReportedObs = new Obs();
+            dateReportedObs.setPatientID(labResult.getPatientID());
+            dateReportedObs.setVisitDate(labResult.getDateCollected());
+            dateReportedObs.setConceptID(DATE_LAB_REPORTED_CONCEPT);
+            dateReportedObs.setValueDate(labResult.getDateReported());
+            dateReportedObs.setDateEntered(labResult.getTimestamp());
+            dateReportedObs.setLocationID(locationID);
+            dateReportedObs.setFormID(NMRS_LAB_FORM_ID);
+            dateReportedObs.setUuid(Converter.generateUUID());
+            dateReportedObs.setProviderID(NMRS_PROVIDER_ID);
+            dateReportedObs.setCreator(NMRS_CREATOR_ID);
+            dateReportedObs.setVoided(VOIDED);
+        }
         return dateReportedObs;
     }
 
     public Obs createDateSampleCollectedObs(LamisLabResult labResult, int locationID) {
-        Obs dateSampleCollectObs = new Obs();
-        dateSampleCollectObs.setPatientID(labResult.getPatientID());
-        dateSampleCollectObs.setVisitDate(labResult.getDateCollected());
-        dateSampleCollectObs.setConceptID(DATE_SAMPLE_COLLECTED_CONCEPT);
-        dateSampleCollectObs.setValueDate(labResult.getDateCollected());
-        dateSampleCollectObs.setDateEntered(labResult.getTimestamp());
-        dateSampleCollectObs.setLocationID(locationID);
-        dateSampleCollectObs.setFormID(NMRS_LAB_FORM_ID);
-        dateSampleCollectObs.setUuid(Converter.generateUUID());
-        dateSampleCollectObs.setProviderID(NMRS_PROVIDER_ID);
-        dateSampleCollectObs.setCreator(NMRS_CREATOR_ID);
-        dateSampleCollectObs.setVoided(VOIDED);
+        Obs dateSampleCollectObs = null;
+        if (labResult.getDateCollected() != null) {
+            dateSampleCollectObs = new Obs();
+            dateSampleCollectObs.setPatientID(labResult.getPatientID());
+            dateSampleCollectObs.setVisitDate(labResult.getDateCollected());
+            dateSampleCollectObs.setConceptID(DATE_SAMPLE_COLLECTED_CONCEPT);
+            dateSampleCollectObs.setValueDate(labResult.getDateCollected());
+            dateSampleCollectObs.setDateEntered(labResult.getTimestamp());
+            dateSampleCollectObs.setLocationID(locationID);
+            dateSampleCollectObs.setFormID(NMRS_LAB_FORM_ID);
+            dateSampleCollectObs.setUuid(Converter.generateUUID());
+            dateSampleCollectObs.setProviderID(NMRS_PROVIDER_ID);
+            dateSampleCollectObs.setCreator(NMRS_CREATOR_ID);
+            dateSampleCollectObs.setVoided(VOIDED);
+        }
         return dateSampleCollectObs;
     }
 
@@ -146,18 +152,21 @@ public class LamisLabDictionary {
     }
 
     public Obs createDateOrderedObs(LamisLabResult labResult, int locationID) {
-        Obs dateOrderedObs = new Obs();
-        dateOrderedObs.setPatientID(labResult.getPatientID());
-        dateOrderedObs.setVisitDate(labResult.getDateCollected());
-        dateOrderedObs.setConceptID(DATE_ORDERED_CONCEPT);
-        dateOrderedObs.setValueDate(labResult.getDateCollected());
-        dateOrderedObs.setDateEntered(labResult.getTimestamp());
-        dateOrderedObs.setLocationID(locationID);
-        dateOrderedObs.setFormID(NMRS_LAB_FORM_ID);
-        dateOrderedObs.setUuid(Converter.generateUUID());
-        dateOrderedObs.setProviderID(NMRS_PROVIDER_ID);
-        dateOrderedObs.setCreator(NMRS_CREATOR_ID);
-        dateOrderedObs.setVoided(VOIDED);
+        Obs dateOrderedObs = null;
+        if (labResult.getDateCollected() != null) {
+            dateOrderedObs = new Obs();
+            dateOrderedObs.setPatientID(labResult.getPatientID());
+            dateOrderedObs.setVisitDate(labResult.getDateCollected());
+            dateOrderedObs.setConceptID(DATE_ORDERED_CONCEPT);
+            dateOrderedObs.setValueDate(labResult.getDateCollected());
+            dateOrderedObs.setDateEntered(labResult.getTimestamp());
+            dateOrderedObs.setLocationID(locationID);
+            dateOrderedObs.setFormID(NMRS_LAB_FORM_ID);
+            dateOrderedObs.setUuid(Converter.generateUUID());
+            dateOrderedObs.setProviderID(NMRS_PROVIDER_ID);
+            dateOrderedObs.setCreator(NMRS_CREATOR_ID);
+            dateOrderedObs.setVoided(VOIDED);
+        }
         return dateOrderedObs;
     }
 

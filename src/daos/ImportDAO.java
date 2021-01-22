@@ -88,7 +88,7 @@ public class ImportDAO {
     private final static int DATAENTRY_PROVIDER_ENCOUNTER_ROLE = 1;
     private final static int VISIT_TYPE_ID = 1;
     private final static int VOIDED = 0;
-    private final static int PHONE_ATTRIBUTE_TYPE_ID=8;
+    private final static int PHONE_ATTRIBUTE_TYPE_ID = 8;
     private final static String ADDRESS_COUNTRY = "NIGERIA";
     private Set<Integer> providerIdSet = new HashSet<Integer>();
     private FileManager mgr;
@@ -268,7 +268,8 @@ public class ImportDAO {
             processException(ex, "");
         }
     }
-    public void migrateARTCommencement(String csvFile,int locationID){
+
+    public void migrateARTCommencement(String csvFile, int locationID) {
         int count = 0;
         int batch_count = 1;
         List<HIVEnrollment> hivEnrollmentList = null;
@@ -285,7 +286,7 @@ public class ImportDAO {
         for (HIVEnrollment hIVEnrollment : hivEnrollmentList) {
             if (hIVEnrollment.getArtStartDate() != null) {
                 obsList = dictionary.convertToObsList(hIVEnrollment, locationID);
-                System.out.println(hIVEnrollment.getPatientID()+" size "+ obsList.size());
+                System.out.println(hIVEnrollment.getPatientID() + " size " + obsList.size());
                 obsListForMigration.addAll(obsList);
                 num++;
                 screen.updateProgress(num);
@@ -294,7 +295,7 @@ public class ImportDAO {
                     screen.updateStatus(num + " ARTCommencement migrated of " + size);
                     obsListForMigration.clear();
                 }
-            }else{
+            } else {
                 System.out.println("ARTStartDate is empty");
             }
         }
@@ -308,6 +309,7 @@ public class ImportDAO {
         }
         dictionary.closeAllResources();
     }
+
     public void migrateDemographics(List<Demographics> demoList, int locationID) {
         savePersons(demoList);
         savePatients(demoList);
@@ -745,28 +747,30 @@ public class ImportDAO {
             handleException(ex);
         }
     }
-    public void savePersonAttribute(List<Demographics> demoList){
-        String sql_text="insert into person_attribute"
+
+    public void savePersonAttribute(List<Demographics> demoList) {
+        String sql_text = "insert into person_attribute"
                 + " (person_id,value,person_attribute_type_id,creator,date_created,voided,uuid)"
                 + " values(?,?,?,?,?,?,?)";
-        PreparedStatement ps=prepareQuery(sql_text);
-        try{
-            for(Demographics demo: demoList){
+        PreparedStatement ps = prepareQuery(sql_text);
+        try {
+            for (Demographics demo : demoList) {
                 ps.setInt(1, demo.getPatientID());
-                ps.setString(2,demo.getPhone_number());
+                ps.setString(2, demo.getPhone_number());
                 ps.setInt(3, PHONE_ATTRIBUTE_TYPE_ID);
-                ps.setInt(4,ADMIN_USER_ID);
+                ps.setInt(4, ADMIN_USER_ID);
                 ps.setDate(5, Converter.convertToSQLDate(demo.getDateCreated()));
-                ps.setInt(6,VOIDED);
+                ps.setInt(6, VOIDED);
                 ps.setString(7, Converter.generateUUID());
                 ps.addBatch();
             }
             ps.executeBatch();
             ps.close();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             handleException(ex);
         }
     }
+
     public void savePersonAddress(List<Demographics> demoList) {
         String sql_text = "insert into person_address "
                 + "(person_id,preferred,address1,address2,"
@@ -855,16 +859,18 @@ public class ImportDAO {
         screen.updateMinMaxProgress(0, count);
         int num = 0;
         for (LamisLabResult labResult : labResultList) {
-            obsListForMigration.addAll(dictionary.convertToObs(labResult, locationID));
-            num++;
-            screen.updateProgress(num);
-            if (num % 200 == 0) {
-                migrateMigrateForms(obsListForMigration, locationID);
-                screen.updateStatus(num + " Lab test migrated of " + count);
-                obsListForMigration.clear();
+            if (labResult.getDateCollected() != null) {
+                obsListForMigration.addAll(dictionary.convertToObs(labResult, locationID));
+                num++;
+                screen.updateProgress(num);
+                if (num % 200 == 0) {
+                    migrateMigrateForms(obsListForMigration, locationID);
+                    screen.updateStatus(num + " Lab test migrated of " + count);
+                    obsListForMigration.clear();
+                }
             }
         }
-         try {
+        try {
             commitConnection();
         } catch (SQLException ex) {
             handleException(ex);
@@ -1253,7 +1259,7 @@ public class ImportDAO {
         encounterTypeIDMap.put(51, 21);
         encounterTypeIDMap.put(52, 22);
         encounterTypeIDMap.put(53, 23);
-        encounterTypeIDMap.put(56,25);
+        encounterTypeIDMap.put(56, 25);
     }
 
     public int getVisitID(Date visitDate, int patientID) {
@@ -1426,7 +1432,7 @@ public class ImportDAO {
             ps.setInt(pos, val);
         }
     }
-    
+
     public void handlePS(int pos, double val, PreparedStatement ps) throws SQLException {
         if (val == 0.0) {
             ps.setNull(pos, java.sql.Types.DOUBLE);
