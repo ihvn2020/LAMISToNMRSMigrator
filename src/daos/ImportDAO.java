@@ -865,6 +865,12 @@ public class ImportDAO {
                 obsListForMigration.clear();
             }
         }
+         try {
+            commitConnection();
+        } catch (SQLException ex) {
+            handleException(ex);
+        }
+        dictionary.closeAllResources();
 
     }
 

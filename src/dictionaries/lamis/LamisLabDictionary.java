@@ -261,5 +261,9 @@ public class LamisLabDictionary {
         }
         return obsList;
     }
+     public void closeAllResources() {
+        mgr.closeAll();
+    }
+    
 
 }
