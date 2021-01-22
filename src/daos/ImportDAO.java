@@ -604,7 +604,6 @@ public class ImportDAO {
                 screen.updateProgress(count);
                 screen.updateStatus(count + " of " + size + " patient created in batch: " + batch_count);
                 if ((count % 500) == 0) {
-
                     migrateDemographics(demoListPassValidation, locationID);
                     demoListPassValidation.clear();
                     batch_count++;
