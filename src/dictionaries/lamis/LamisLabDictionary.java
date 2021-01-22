@@ -98,7 +98,7 @@ public class LamisLabDictionary {
         dateReportedObs.setPatientID(labResult.getPatientID());
         dateReportedObs.setVisitDate(labResult.getDateCollected());
         dateReportedObs.setConceptID(DATE_SAMPLE_COLLECTED_CONCEPT);
-        dateReportedObs.setValueDate(labResult.getDateReported());
+        dateReportedObs.setValueDate(labResult.getDateCollected());
         dateReportedObs.setDateEntered(labResult.getTimestamp());
         dateReportedObs.setLocationID(locationID);
         dateReportedObs.setFormID(NMRS_LAB_FORM_ID);
