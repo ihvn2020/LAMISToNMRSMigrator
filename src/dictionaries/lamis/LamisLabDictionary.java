@@ -148,7 +148,7 @@ public class LamisLabDictionary {
     public Obs createIndicationObs(LamisLabResult labResult, int locationID) {
         Obs indicationForViralLoadTestObs = null;
         if (StringUtils.isNotEmpty(labResult.getComment()) && codedValueMap.containsKey(labResult.getComment())) {
-            indicationForViralLoadTestObs=new Obs();
+            indicationForViralLoadTestObs = new Obs();
             indicationForViralLoadTestObs.setPatientID(labResult.getPatientID());
             indicationForViralLoadTestObs.setVisitDate(labResult.getDateCollected());
             indicationForViralLoadTestObs.setConceptID(COMMENT_CONCEPT);
@@ -212,28 +212,32 @@ public class LamisLabDictionary {
     }
 
     public Obs createLabTestObs(LamisLabResult labResult, int locationID) {
-        Obs labTestObs = new Obs();
+        Obs labTestObs = null;
         LamisLabCoding labCode = getCodingObj(labResult.getLabtestID());
-        labTestObs.setPatientID(labResult.getPatientID());
-        labTestObs.setVisitDate(labResult.getDateCollected());
-        labTestObs.setConceptID(getLabTestConceptID(labResult));
-        //labTestObs.setValueDate(labResult.getDateReported());
-        labTestObs.setDateEntered(labResult.getTimestamp());
-        if (labCode.getDataType().equalsIgnoreCase("CODED")) {
-            labTestObs.setValueCoded(getCodedLabTestAnswer(labResult));
-        } else if (labCode.getDataType().equalsIgnoreCase("NUMERIC")) {
-            if (StringUtils.isNotEmpty(labResult.getResultAbsolute()) && Converter.isValidDouble(labResult.getResultAbsolute())) {
-                labTestObs.setValueNumeric(Converter.convertToDouble(labResult.getResultAbsolute()));
-            } else if (StringUtils.isNoneEmpty(labResult.getResultPercentage()) && Converter.isValidDouble(labResult.getResultAbsolute())) {
-                labTestObs.setValueNumeric(Converter.convertToDouble(labResult.getResultPercentage()));
+        if (labCode != null) {
+            labTestObs=new Obs();
+            labTestObs.setPatientID(labResult.getPatientID());
+            labTestObs.setVisitDate(labResult.getDateCollected());
+            labTestObs.setConceptID(getLabTestConceptID(labResult));
+            //labTestObs.setValueDate(labResult.getDateReported());
+            labTestObs.setDateEntered(labResult.getTimestamp());
+            if (labCode.getDataType().equalsIgnoreCase("CODED")) {
+                labTestObs.setValueCoded(getCodedLabTestAnswer(labResult));
+            } else if (labCode.getDataType().equalsIgnoreCase("NUMERIC")) {
+                if (StringUtils.isNotEmpty(labResult.getResultAbsolute()) && Converter.isValidDouble(labResult.getResultAbsolute())) {
+                    labTestObs.setValueNumeric(Converter.convertToDouble(labResult.getResultAbsolute()));
+                } else if (StringUtils.isNoneEmpty(labResult.getResultPercentage()) && Converter.isValidDouble(labResult.getResultAbsolute())) {
+                    labTestObs.setValueNumeric(Converter.convertToDouble(labResult.getResultPercentage()));
+                }
             }
+            labTestObs.setLocationID(locationID);
+            labTestObs.setFormID(NMRS_LAB_FORM_ID);
+            labTestObs.setUuid(Converter.generateUUID());
+            labTestObs.setProviderID(NMRS_PROVIDER_ID);
+            labTestObs.setCreator(NMRS_CREATOR_ID);
+            labTestObs.setVoided(VOIDED);
         }
-        labTestObs.setLocationID(locationID);
-        labTestObs.setFormID(NMRS_LAB_FORM_ID);
-        labTestObs.setUuid(Converter.generateUUID());
-        labTestObs.setProviderID(NMRS_PROVIDER_ID);
-        labTestObs.setCreator(NMRS_CREATOR_ID);
-        labTestObs.setVoided(VOIDED);
+
         return labTestObs;
     }
 
