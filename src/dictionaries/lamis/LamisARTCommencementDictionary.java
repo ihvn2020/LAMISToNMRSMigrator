@@ -67,8 +67,10 @@ public class LamisARTCommencementDictionary {
             obsList.add(obs);
         }
         //Baseline CD4
-        obs = createNumericObs(hivEnrollment, BASELINE_CD4_CONCEPT_ID, hivEnrollment.getBaselineCD4(), locationID);
-        obsList.add(obs);
+        if (hivEnrollment.getBaselineCD4() != 0.0) {
+            obs = createNumericObs(hivEnrollment, BASELINE_CD4_CONCEPT_ID, hivEnrollment.getBaselineCD4(), locationID);
+            obsList.add(obs);
+        }
         //Baseline Weight
         obs = createNumericObs(hivEnrollment, BASELINE_WEIGHT_CONCEPT_ID, hivEnrollment.getBaselineWeight(), locationID);
         obsList.add(obs);
