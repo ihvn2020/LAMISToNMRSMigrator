@@ -256,6 +256,7 @@ public class LamisLabDictionary {
         obsList.add(dateOrderedObs);
         obsList.add(dateSampleCollectedObs);
         obsList.add(reportedByObs);
+        obsList.add(dateReportedObs);
         if (indicationObs != null) {
             obsList.add(indicationObs);
         }
