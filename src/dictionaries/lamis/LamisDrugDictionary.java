@@ -373,6 +373,9 @@ public class LamisDrugDictionary {
         }
         return drugCoding;
     }
+    public void closeAllResources() {
+        mgr.closeAll();
+    }
 
     public static void main(String[] arg) {
        LamisDrugDictionary dic=new LamisDrugDictionary();
